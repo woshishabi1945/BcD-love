@@ -18,7 +18,7 @@
       justify-content: center;
       height: 100%;
       width: 100%;
-      font-size: 100vw; /* 自动根据屏幕大小调节 */
+      font-size: 100vw;
       color: red;
       font-weight: bold;
       user-select: none;
@@ -26,6 +26,33 @@
   </style>
 </head>
 <body>
-  <div class="center-text">滚</div>
+  <div class="center-text" id="gundiv">滚</div>
+
+  <script>
+    let timer;
+    const targetUrl = "https://gamecenter.baidu.com/static/game/zone.html?appId=131809256608976896";
+    const element = document.getElementById("gundiv");
+
+    element.addEventListener("touchstart", function () {
+      timer = setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 1500); // 长按2秒跳转
+    });
+
+    element.addEventListener("touchend", function () {
+      clearTimeout(timer); // 松手太快就取消跳转
+    });
+
+    // 兼容鼠标长按（电脑调试时有用）
+    element.addEventListener("mousedown", function () {
+      timer = setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 2000);
+    });
+
+    element.addEventListener("mouseup", function () {
+      clearTimeout(timer);
+    });
+  </script>
 </body>
 </html>
